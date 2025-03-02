@@ -9,6 +9,18 @@
     <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.2/dist/vanilla-tilt.min.js"></script>
     <style>
         /* Base Styles */
+        .chart-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 20px;
+    background: #112240;
+    border-radius: 8px;
+}
+
+#languageBarChart {
+    width: 100%!important;
+    height: 400px!important;
+}
         * {
             margin: 0;
             padding: 0;
@@ -404,12 +416,101 @@
             </div>
         </div>
     </section>
+    <section id="language-chart">
+        <h2>Language Proficiency</h2>
+        <div class="chart-container">
+            <canvas id="languageBarChart"></canvas>
+        </div>
+    </section>
 </body>
 
     <!-- Skill Popup Container -->
     <div class="skill-popup" id="skillPopup"></div>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+        // Language Chart Data
+const languageData = {
+    labels: ['English (IELTS)', 'Bengali', 'Hindi', 'Urdu'],
+    datasets: [{
+        label: 'Proficiency Level',
+        data: [6.0, 9.0, 7.5, 6.5], // Scaled to 0-9 for consistency
+        backgroundColor: [
+            'rgba(100, 255, 218, 0.7)',
+            'rgba(100, 255, 218, 0.7)',
+            'rgba(100, 255, 218, 0.7)',
+            'rgba(100, 255, 218, 0.7)'
+        ],
+        borderColor: [
+            '#64ffda',
+            '#64ffda',
+            '#64ffda',
+            '#64ffda'
+        ],
+        borderWidth: 2
+    }]
+};
+
+// Chart configuration
+const barConfig = {
+    type: 'bar',
+    data: languageData,
+    options: {
+        indexAxis: 'x',
+        responsive: true,
+        animation: {
+            duration: 2000,
+            easing: 'easeOutQuart'
+        },
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                callbacks: {
+                    label: (context) => {
+                        const labels = [
+                            'IELTS Score: 6.0/9.0',
+                            'Native Proficiency',
+                            'Fluent Proficiency',
+                            'Conversational Proficiency'
+                        ];
+                        return labels[context.dataIndex];
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                max: 9,
+                grid: {
+                    color: '#233554'
+                },
+                ticks: {
+                    color: '#8892b0',
+                    stepSize: 1,
+                    callback: function(value) {
+                        return value + '/9';
+                    }
+                }
+            },
+            x: {
+                grid: {
+                    display: false
+                },
+                ticks: {
+                    color: '#ccd6f6'
+                }
+            }
+        }
+    }
+};
+
+// Initialize chart with animation
+window.addEventListener('load', () => {
+    const ctx = document.getElementById('languageBarChart').getContext('2d');
+    new Chart(ctx, barConfig);
+});
         // Skill Popup Logic
         const skillCards = document.querySelectorAll('.skill-card');
         const skillPopup = document.getElementById('skillPopup');
