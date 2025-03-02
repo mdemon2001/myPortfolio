@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md Fazlul Bary Patwary - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.2/dist/vanilla-tilt.min.js"></script>
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            color: #8892b0;
+            line-height: 1.6;
+            background: #0a192f;
+        }
+
+        /* Particle Background */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Scroll Progress */
+        .scroll-progress {
+            height: 3px;
+            background: #64ffda;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+            transition: width 0.3s ease;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 70px;
+            cursor: pointer;
+            z-index: 1000;
+            color: #64ffda;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section {
+            opacity: 0;
+            animation: fadeIn 1s ease-in forwards;
+        }
+
+        /* Header Styles */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            color: #64ffda;
+            margin-bottom: 1rem;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            color: #ccd6f6;
+            margin-bottom: 2rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Social Links */
+        .social-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .social-links a {
+            color: #64ffda;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: translateY(-3px);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 100px 10%;
+            position: relative;
+            background: rgba(10, 25, 47, 0.9);
+        }
+
+        h2 {
+            color: #64ffda;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: #64ffda;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            padding: 20px;
+            background: #112240;
+            margin: 20px;
+            border-radius: 4px;
+            transform: translateX(-50px);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .timeline-item.visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-card {
+            background: #112240;
+            padding: 2rem;
+            border-radius: 4px;
+            text-align: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Skill Popup */
+        .skill-popup {
+            position: fixed;
+            background: #112240;
+            color: #64ffda;
+            padding: 1.5rem;
+            border-radius: 4px;
+            max-width: 300px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 1000;
+            box-shadow: 0 0 15px rgba(100, 255, 218, 0.2);
+        }
+
+        .skill-popup.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3rem; }
+            .hero h2 { font-size: 2rem; }
+            section { padding: 60px 5%; }
+            .skill-popup { max-width: 200px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="scroll-progress"></div>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle" onclick="toggleTheme()">
+        <i class="fas fa-moon fa-2x"></i>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content section">
+            <h4 class="greeting">Hi, my name is</h4>
+            <h1>Md Fazlul Bary Patwary</h1>
+            <h2>Computing Science Student & Tech Enthusiast</h2>
+            <p>A passionate computing science student at Ulster University seeking opportunities to apply technical skills in real-world scenarios.</p>
+            <div class="social-links">
+                <a href="mailto:mdfazlulbarypatwary@gmail.com"><i class="fas fa-envelope"></i></a>
+                <a href="http://linkedin.com/in/md-fazlul-bary-patwary" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="tel:07874663178"><i class="fas fa-phone"></i></a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Education Section -->
+    <section id="education">
+        <h2>Education</h2>
+        <div class="timeline">
+            <!-- Ulster University -->
+            <div class="timeline-item">
+                <h3>Ulster University | BSc (Hons) Computing Science</h3>
+                <p>2022 - Current</p>
+                <ul>
+                    <li>Year 1 Average: 70%</li>
+                    <li>Year 2 Average: 63%</li>
+                    <li>Year 4 Average: Pending!!</li>
+                    <li><b>Key Modules:</b> Cloud Native Development, AI, Enterprise Networks, 
+                        Computing Project, Server Side Development, Full-stack Strategies & Development, 
+                        Programming Python, Programming Java, Database System, Mathematics, 
+                        Computer Technology, System Security</li>
+                </ul>
+            </div>
+    
+            <!-- Dania College -->
+            <div class="timeline-item">
+                <h3>Dania College | Higher Secondary Certificate</h3>
+                <p>July 2018 - July 2020</p>
+                <ul>
+                    <li><b>Grade:</b> GPA 5.00 out of 5.00</li>
+                    <li><b>Subjects:</b> English (A), Mathematics (A), ICT (A+)</li>
+                </ul>
+            </div>
+    
+            <!-- A.K. High School -->
+            <div class="timeline-item">
+                <h3>A.K. High School | Secondary School Certificate</h3>
+                <p>January 2016 - April 2018</p>
+                <ul>
+                    <li><b>Grade:</b> GPA 4.39 out of 5.00</li>
+                    <li><b>Subjects:</b> English (A), Mathematics (A), ICT (A+)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Sections (Same as previous with data-experience attributes) -->
+    <!-- Skills Sections -->
+    <section id="skills">
+        <h2>Programming Languages</h2>
+        <div class="skills-grid">
+            <div class="skill-card" data-experience="Advanced Java developing experience in building several academic project. Strong understanding of OOP concepts and Java frameworks.">
+                <i class="fab fa-java fa-3x"></i>
+                <h3>Java</h3>
+                <p>Advanced Proficiency</p>
+            </div>
+            <div class="skill-card" data-experience="Proficient in Python for data analysis, scripting, and automation tasks. Experience with Django framework and machine learning basics.">
+                <i class="fab fa-python fa-3x"></i>
+                <h3>Python</h3>
+                <p>Proficient</p>
+            </div>
+            <div class="skill-card" data-experience="Experienced JavaScript developer with expertise in ES6+ features. Built interactive web applications using modern frameworks.">
+                <i class="fab fa-js-square fa-3x"></i>
+                <h3>JavaScript</h3>
+                <p>Advanced Proficiency</p>
+            </div>
+            <div class="skill-card" data-experience="Developed server-side applications using Node.js. Experience with Express.js and REST API development.">
+                <i class="fab fa-node-js fa-3x"></i>
+                <h3>Node.js</h3>
+                <p>Proficient</p>
+            </div>
+            <div class="skill-card" data-experience="Built responsive web applications using React. Strong understanding of component-based architecture and state management.">
+                <i class="fab fa-react fa-3x"></i>
+                <h3>React</h3>
+                <p>Advanced Proficiency</p>
+            </div>
+            <div class="skill-card" data-experience="Experience in cross-platform mobile app development using React Native. Implemented native modules and optimized performance.">
+                <i class="fab fa-react fa-3x"></i>
+                <h3>React Native</h3>
+                <p>Proficient</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>Operating Systems</h2>
+        <div class="skills-grid">
+            <div class="skill-card" data-experience="Daily driver for development environment. Experienced in system administration and optimization.">
+                <i class="fab fa-windows fa-3x"></i>
+                <h3>Windows 10/11</h3>
+                <p>Experienced</p>
+            </div>
+            <div class="skill-card" data-experience="Proficient in Linux system administration. Experience with shell scripting and server management.">
+                <i class="fab fa-linux fa-3x"></i>
+                <h3>Linux</h3>
+                <p>Experienced</p>
+            </div>
+            <div class="skill-card" data-experience="Experienced with macOS development environment setup and Unix-based terminal operations.">
+                <i class="fab fa-apple fa-3x"></i>
+                <h3>MacOS</h3>
+                <p>Experienced</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>Development Tools</h2>
+        <div class="skills-grid">
+            <div class="skill-card" data-experience="Primary code editor with expertise in extensions and debugging tools.">
+                <i class="fas fa-code fa-3x"></i>
+                <h3>VS Code</h3>
+                <p>Expert</p>
+            </div>
+            <div class="skill-card" data-experience="Main IDE for Java development with experience in plugin configuration and debugging.">
+                <i class="fas fa-code fa-3x"></i>
+                <h3>IntelliJ IDEA</h3>
+                <p>Expert</p>
+            </div>
+            <div class="skill-card" data-experience="Preferred IDE for Python development with experience in virtual environment management.">
+                <i class="fas fa-code fa-3x"></i>
+                <h3>PyCharm</h3>
+                <p>Expert</p>
+            </div>
+            <div class="skill-card" data-experience="Experience with NetBeans for Java academic project development and GUI design.">
+                <i class="fas fa-code fa-3x"></i>
+                <h3>NetBeans</h3>
+                <p>Expert</p>
+            </div>
+            <div class="skill-card" data-experience="Proficient in Ubuntu system administration and server setup.">
+                <i class="fab fa-ubuntu fa-3x"></i>
+                <h3>Ubuntu</h3>
+                <p>Experienced</p>
+            </div>
+            <div class="skill-card" data-experience="Used for Python scripting and rapid prototyping.">
+                <i class="fas fa-terminal fa-3x"></i>
+                <h3>IDLE (Python)</h3>
+                <p>Proficient</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2>Databases, Cloud & DevOps</h2>
+        <div class="skills-grid">
+            <div class="skill-card" data-experience="Experienced in relational database design and SQL query optimization.">
+                <i class="fas fa-database fa-3x"></i>
+                <h3>SQL</h3>
+                <p>Proficient</p>
+            </div>
+            <div class="skill-card" data-experience="Developed NoSQL database solutions using MongoDB Atlas and Mongoose ODM.">
+                <i class="fab fa-envira fa-3x"></i>
+                <h3>MongoDB</h3>
+                <p>Expert</p>
+            </div>
+            <div class="skill-card" data-experience="Deployed cloud-native applications using Microsoft Azure services.">
+                <i class="fab fa-microsoft fa-3x"></i>
+                <h3>Microsoft Azure</h3>
+                <p>Proficient</p>
+            </div>
+            <div class="skill-card" data-experience="Experience in setting up virtual machines and network configurations.">
+                <i class="fas fa-server fa-3x"></i>
+                <h3>VirtualBox</h3>
+                <p>Proficient</p>
+            </div>
+            <div class="skill-card" data-experience="Proficient in version control using Git for collaborative development.">
+                <i class="fab fa-git-alt fa-3x"></i>
+                <h3>Git</h3>
+                <p>Proficient</p>
+            </div>
+            <div class="skill-card" data-experience="Maintained code repositories and collaborated through GitHub projects.">
+                <i class="fab fa-github fa-3x"></i>
+                <h3>GitHub</h3>
+                <p>Proficient</p>
+            </div>
+        </div>
+    </section>
+</body>
+
+    <!-- Skill Popup Container -->
+    <div class="skill-popup" id="skillPopup"></div>
+
+    <script>
+        // Skill Popup Logic
+        const skillCards = document.querySelectorAll('.skill-card');
+        const skillPopup = document.getElementById('skillPopup');
+        let typingTimeout;
+
+        skillCards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const experience = card.dataset.experience;
+                const x = e.clientX + 15;
+                const y = e.clientY + 15;
+                
+                skillPopup.style.left = `${x}px`;
+                skillPopup.style.top = `${y}px`;
+                skillPopup.classList.add('visible');
+                
+                // Typing animation
+                let charIndex = 0;
+                skillPopup.innerHTML = '';
+                
+                function typeText() {
+                    if(charIndex < experience.length) {
+                        skillPopup.innerHTML += experience.charAt(charIndex);
+                        charIndex++;
+                        typingTimeout = setTimeout(typeText, 30);
+                    }
+                }
+                
+                clearTimeout(typingTimeout);
+                typeText();
+            });
+
+            card.addEventListener('mouseleave', () => {
+                skillPopup.classList.remove('visible');
+                clearTimeout(typingTimeout);
+            });
+        });
+
+        // Intersection Observer for timeline
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.timeline-item').forEach((el) => {
+            observer.observe(el);
+        });
+
+
+
+        // Hover effects
+        document.querySelectorAll('a, button, .skill-card').forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('cursor-hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('cursor-hover'));
+        });
+
+        // Particles.js
+        particlesJS('particles-js', {
+    particles: {
+        number: { value: 100 },
+        color: { value: "#64ffda" },
+        shape: { type: "circle" },
+        opacity: { value: 0.5 },
+        size: { value: 3 },
+        move: {
+            enable: true,
+            speed: 2,
+            direction: "none",
+            out_mode: "out",
+            bounce: false
+        }
+    },
+    interactivity: {
+        detect_on: "window",
+        events: {
+            onhover: { enable: true, mode: "repulse" },
+            onclick: { enable: true, mode: "push" },
+            resize: true
+        }
+    },
+    retina_detect: true
+});
+
+        // Scroll Progress
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            document.querySelector('.scroll-progress').style.width = (scrollTop / height) * 100 + '%';
+        });
+
+        // Vanilla Tilt
+        VanillaTilt.init(document.querySelectorAll('.skill-card'), {
+            max: 5,
+            speed: 300,
+            glare: true,
+            'max-glare': 0.1
+        });
+
+        // Theme Toggle
+        function toggleTheme() {
+            document.body.classList.toggle('light-theme');
+            document.querySelector('.theme-toggle i').classList.toggle('fa-moon');
+            document.querySelector('.theme-toggle i').classList.toggle('fa-sun');
+        }
+
+        
+    </script>
+
+</html>
