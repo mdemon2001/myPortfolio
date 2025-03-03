@@ -9,6 +9,122 @@
     <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.7.2/dist/vanilla-tilt.min.js"></script>
     <style>
         /* Base Styles */
+        #hobbies {
+    padding: 4rem 10%;
+    background: linear-gradient(45deg, #0a192f, #020c1b);
+}
+
+.hobbies-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.photography-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.photo-collage {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.photo-item {
+    position: relative;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.photo-item:hover {
+    transform: scale(1.03);
+}
+
+.photo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(10, 25, 47, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.photo-item:hover .photo-overlay {
+    opacity: 1;
+}
+
+.photo-overlay i {
+    font-size: 2.5rem;
+    color: #64ffda;
+    margin-bottom: 1rem;
+}
+
+.photo-overlay p {
+    color: #fff;
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+.hobbies-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.hobby-card {
+    background: #112240;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.hobby-card:hover {
+    transform: translateY(-5px);
+}
+
+.hobby-card i {
+    font-size: 2.5rem;
+    color: #64ffda;
+    margin-bottom: 1rem;
+}
+
+.hobby-card h3 {
+    color: #ccd6f6;
+    margin-bottom: 1rem;
+}
+
+.hobby-card p {
+    color: #8892b0;
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+    .photography-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .photo-collage {
+        grid-template-columns: 1fr;
+    }
+    
+    .photo-item {
+        height: 200px;
+    }
+}
+
         .chart-container {
     max-width: 800px;
     margin: 2rem auto;
@@ -416,6 +532,66 @@
             </div>
         </div>
     </section>
+    <!-- Add this section after your skills section -->
+<section id="hobbies">
+    <h2>Hobbies & Interests</h2>
+    
+    <div class="hobbies-container">
+        <!-- Photography Showcase -->
+        <div class="hobby-card photography-grid">
+            
+            <div class="photo-collage">
+                <div class="photo-item" style="background-image: url('image/D795B95C-B894-42D5-8977-7A5DF308E32E_1_102_o.jpeg')">
+                    <div class="photo-overlay">
+
+                        <i class="fas fa-camera"></i>
+                        <p>Nature Photography</p>
+                        <p>Captured at Stormont Parliament,Belfast in 2022</p>
+                    </div>
+                </div>
+                <div class="photo-item" style="background-image: url('image/C60B1073-1DB6-481F-A879-01A1E6C544F7_1_201_a.jpeg')">
+                    <div class="photo-overlay">
+                        <i class="fas fa-building"></i>
+                        <p>Urban Architecture</p>
+                        <p>Captured at Panamanagar,Sonargaon in 2019</p>
+                    </div>
+                </div>
+                <div class="photo-item" style="background-image: url('image/FFB83695-A84C-4F83-AD18-34B755D540E3_1_102_o.jpeg')">
+                    <div class="photo-overlay">
+                        <i class="fas fa-laptop"></i>
+                        <p>Tech Aesthetics</p>
+                        <p>Captured at Victoria Square,Belfast in 2023</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hobby-content">
+                <h3>Photography Enthusiast</h3>
+                <p>Capturing moments through my lens, exploring perspectives in nature, architecture, and technology.</p>
+            </div>
+        </div>
+
+        <!-- Other Hobbies Grid -->
+        <div class="hobbies-grid">
+            <div class="hobby-card">
+                <i class="fas fa-code"></i>
+                <h3>Open Source Contributions</h3>
+                <p>Regularly contributing to GitHub projects and participating in hackathons</p>
+            </div>
+            
+            <div class="hobby-card">
+                <i class="fas fa-hiking"></i>
+                <h3>Mountain Hiking</h3>
+                <p>Exploring nature trails and challenging mountain paths during weekends</p>
+            </div>
+            
+            <div class="hobby-card">
+                <i class="fas fa-book-open"></i>
+                <h3>Tech Reading</h3>
+                <p>Keeping up with latest tech trends through books and research papers</p>
+            </div>
+        </div>
+    </div>
+</section>
     <section id="language-chart">
         <h2>Language Proficiency</h2>
         <div class="chart-container">
